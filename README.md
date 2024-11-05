@@ -2,6 +2,7 @@
 
 示例代码
 
+```c++
 #include <wowjson/JsonConvertDefine.h>
 #include <iostream>
 
@@ -58,3 +59,4 @@ int main(int argc,char** argv)
 	//{ "name":"某某实验小学", "students" : {"2024060001":{"name":"小明", "age" : 10, "scores" : {"语文":89.0, "数学" : 88.0, "AI" : 90.0}}, "2024060002" : {"name":"小方", "age" : 11, "scores" : {"语文":89.0, "数学" : 88.0, "AI" : 90.0}}, "2024060003" : {"name":"小六", "age" : 12, "scores" : {"语文":89.0, "数学" : 70.0, "AI" : 99.0}}} }
 	return 1;
 } 
+```
