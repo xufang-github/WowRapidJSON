@@ -8,22 +8,6 @@
 #include <wowjson/WowMetaType.h>
 
 
-void test(int d) {
-	std::cout << d << std::endl;
-}
-
-
-using namespace wowjson;
-template<typename T>
-void test_log(const T& t)
-{
-	std::ostringstream os;
-	os.precision(BaseNumberCount<T>::count);
-	os << t;
-	std::cout << os.str() << std::endl;
-	std::map<int, int> map;
-}
-
 void testConvert() 
 {
 	std::cout << "*****************testConvert**********************" << std::endl;
@@ -41,8 +25,8 @@ void testConvert()
 	data.unint8V = (wowuint8)256;
 	data.intDeque.push_back(1);
 	data.intDeque.push_back(2);
-	data.intMap[1] = "aa";
-	data.intMap[2] = "bb";
+	data.intMap[1] = "你好, 世界!";
+	data.intMap[2] = "こんにちは世界！";
 	data.mapList.push_back(data.intMap);
 	data.mapList.push_back(data.intMap);
 	data.strMap["aa"] = "aa";
@@ -71,58 +55,43 @@ void testConvert()
 
 	std::cout << msg << std::endl << std::endl << msg2 << std::endl;
 
+	for (int i = 0; i < 25 * 10000; ++i) 
+	{
+		std::string msg;
+		wowjson::object2Json(data, msg);
+
+		test_serial::TestBaseData tempData;
+		wowjson::json2Object(msg, tempData);
+
+	}
+
+	std::cout << msg << std::endl << std::endl << msg2 << std::endl;
+
 }
 
-void testSerial2() 
-{
-	std::vector<Employee> employees;
-	Employee e;
-	e.name_ = "Milo YIP";
-	e.age_ = 34;
-	e.married_ = true;
-	{
-		Dependent d;
-		d.name_ = "Lua YIP";
-		d.age_ = 3;
-		d.education = std::shared_ptr<Education>(new Education());
-		d.education->GPA_ = 3.5;
-		d.education->school_ = "Happy Kindergarten";
-		e.dependents_.push_back(d);
-	}
-	{
-		Dependent d;
-		d.name_ = "Mio YIP";
-		d.age_ = 1;
-		d.education = std::shared_ptr<Education>(nullptr);
-		e.dependents_.push_back(d);
-	}
+#ifdef _WIN32
+#include <windows.h>
+#include <fcntl.h>
+#include <io.h>
+#endif
 
-	employees.push_back(e);
-	{
-		Employee e;
-		e.name_ = "Percy TSE";
-		e.age_ = 30;
-		e.married_ = false;
-		employees.push_back(e);
-	}
-	
-	for (int i = 0; i < 10000; i++)
-	{
-		
-	}
-	
-	
+void enableUtf8Console() {
+#ifdef _WIN32
+	// 设置 Windows 控制台代码页为 UTF-8
+	SetConsoleOutputCP(CP_UTF8);
+#else
+	// 非 Windows 平台通常默认支持 UTF-8 无需特殊处理
+#endif
 }
-
 
 int main(int argc,char** argv)
 {
+	enableUtf8Console();
 	test_serial::getPlaneRouteTask();
 	testConvert();
-	testSerial2();
 	std::cout << "请输入任意的字符回车结束" << std::endl;
 	char c;
 	std::cin >> c;
 	return 1;
 }
-
+  

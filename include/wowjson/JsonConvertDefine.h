@@ -31,8 +31,8 @@ bool _className##2JsonValue(const _namespace::_className& src, ::rapidjson::Writ
 }\
 int registerWowJsonConvert_##_className()\
 {\
-	WowMetaType::registerConvertFunction<::rapidjson::Value, _namespace::_className>(jsonValue2##_className);\
-	WowMetaType::registerConvertFunction<_namespace::_className, ::rapidjson::Writer<::rapidjson::StringBuffer>>(_className##2JsonValue);\
+	::wowjson::WowMetaType::registerConvertFunction<::rapidjson::Value, _namespace::_className>(jsonValue2##_className);\
+	::wowjson::WowMetaType::registerConvertFunction<_namespace::_className, ::rapidjson::Writer<::rapidjson::StringBuffer>>(_className##2JsonValue);\
 	return 1;\
 }\
 int registerWowJsonConvert_##_className##_ID = registerWowJsonConvert_##_className();

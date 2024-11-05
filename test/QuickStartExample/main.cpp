@@ -1,7 +1,3 @@
-依赖RapidJSON
-
-示例代码
-
 #include <wowjson/JsonConvertDefine.h>
 #include <iostream>
 
